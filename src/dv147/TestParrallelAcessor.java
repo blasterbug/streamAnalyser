@@ -4,6 +4,7 @@ import ki.types.ds.StreamInfo;
 import se.umu.cs._5dv147.a1.client.DefaultStreamServiceClient;
 import se.umu.cs._5dv147.a1.client.FrameAccessor;
 import se.umu.cs._5dv147.a1.client.StreamServiceClient;
+import se.umu.cs._5dv147.a1.client.StreamServiceDiscovery;
 
 import java.io.IOException;
 import java.net.SocketException;
@@ -20,12 +21,7 @@ public class TestParrallelAcessor
 
 
         // hosts list
-        String[] hosts = {
-                "bellatrix.cs.umu.se",
-                "dobby.cs.umu.se",
-                "draco.cs.umu.se",
-                "harry.cs.umu.se",
-        };
+        String[] hosts = StreamServiceDiscovery.SINGLETON.findHosts();
 
         // clients list
         StreamServiceClient[] clients = new DefaultStreamServiceClient[ hosts.length ];

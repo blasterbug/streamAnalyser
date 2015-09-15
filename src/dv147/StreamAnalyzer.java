@@ -15,9 +15,10 @@ import se.umu.cs._5dv147.a1.client.FrameAccessor;
 import se.umu.cs._5dv147.a1.client.FrameAccessor.Factory;
 import se.umu.cs._5dv147.a1.client.FrameAccessor.Frame;
 import se.umu.cs._5dv147.a1.client.StreamServiceClient;
+import se.umu.cs._5dv147.a1.client.StreamServiceDiscovery;
 
 /**
- * @author baaz
+ * @author baaz & Benjamin
  *
  */
 public class StreamAnalyzer {
@@ -30,11 +31,20 @@ public class StreamAnalyzer {
 	public static void main(String[] args) throws SocketException, IOException {
 
 
-		String host = "bellatrix.cs.umu.se";
+		// hosts list
+		/*
+		String[] hosts = {
+				"bellatrix.cs.umu.se",
+				"dobby.cs.umu.se",
+				"draco.cs.umu.se",
+				"harry.cs.umu.se",
+		};
+	*/
+	String[] hosts = StreamServiceDiscovery.SINGLETON.findHosts();
 		int timeout = 600;
 		String username = "test1";
 
-		StreamServiceClient client = DefaultStreamServiceClient.bind(host,timeout,username);
+		StreamServiceClient client = DefaultStreamServiceClient.bind(hosts[0],timeout,username);
 
 		StreamInfo streams[] = client.listStreams();
 
