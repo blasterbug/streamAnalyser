@@ -18,7 +18,6 @@ public class FrameAccessorThread extends Thread {
     private int bx_max;
     private int by_min;
     private int by_max;
-    private int frameId;
     private VideoFrame frame;
 
     public FrameAccessorThread(String stream, StreamServiceClient serviceClient) {
@@ -47,10 +46,9 @@ public class FrameAccessorThread extends Thread {
      *
      * @param frame
      */
-    public void setFrame(VideoFrame frame, int frameid)
+    public void setFrame( VideoFrame frame )
     {
         this.frame = frame;
-        frameId = frameid;
     }
 
     public void run() {
@@ -58,9 +56,9 @@ public class FrameAccessorThread extends Thread {
         //VideoFrame frame = new VideoFrame(frameId, streamInfo);
         Block b = null;
 
-        for ( int y = by_min ; y < by_max; y++ )
+        for ( int y = by_min ; by_max > y; y++ )
         {
-            for ( int x = bx_min ; x < bx_max ; x++ )
+            for ( int x = bx_min ; bx_max > x ; x++ )
             {
                 //packetCounter++;
 
@@ -68,23 +66,23 @@ public class FrameAccessorThread extends Thread {
                 {
                     try
                     {
-                        b = serviceClient.getBlock( streamName, frameId, x, y );
+                        b = serviceClient.getBlock( streamName, frame.getId(), x, y );
 
                     }
                     catch ( SocketTimeoutException e )
                     {
                         //packet loss
-                        System.err.println("Packet lost ");
+                        System.err.println( getId() + " : Packet lost");
                         //lossCounter++;
                         b = null;
                     }
                     catch ( IOException e )
                     {
-                        System.err.println( e );
+                        System.err.println( getId() + e.toString() );
                     }
                 }
                 frame.addBlock( y, x, b );
-                System.out.println( "Added block:" + frameId + " " + x + " " + y );
+                System.out.println( getId() + " : Added block: " + frame.getId() + " " + x + " " + y );
                 b = null;
             }
         }

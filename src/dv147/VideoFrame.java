@@ -3,13 +3,13 @@
  */
 package dv147;
 
-import java.io.IOException;
-import java.net.SocketTimeoutException;
-
 import ki.types.ds.Block;
 import ki.types.ds.StreamInfo;
 import se.umu.cs._5dv147.a1.client.FrameAccessor.Frame;
 import se.umu.cs._5dv147.a1.client.StreamServiceClient;
+
+import java.io.IOException;
+import java.net.SocketTimeoutException;
 
 /**
  * @author baaz
@@ -51,5 +51,9 @@ public class VideoFrame implements Frame {
 		blocks[y][x] = b;
 	}
 
+	public int getId()
+	{
+		return id;
+	}
 
 }

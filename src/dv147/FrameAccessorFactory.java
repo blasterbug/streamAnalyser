@@ -1,12 +1,12 @@
 package dv147;
 
-import java.io.IOException;
-import java.net.SocketTimeoutException;
-
 import ki.types.ds.StreamInfo;
 import se.umu.cs._5dv147.a1.client.FrameAccessor;
 import se.umu.cs._5dv147.a1.client.FrameAccessor.Factory;
 import se.umu.cs._5dv147.a1.client.StreamServiceClient;
+
+import java.io.IOException;
+import java.net.SocketTimeoutException;
 
 public class FrameAccessorFactory implements Factory {
 
@@ -49,10 +49,10 @@ public class FrameAccessorFactory implements Factory {
 	}
 
 	@Override
-	public FrameAccessor getFrameAccessor(StreamServiceClient[] arg0,
-			String arg1) {
+	public FrameAccessor getFrameAccessor(StreamServiceClient[] servClientlist,
+			String stream) {
 
-		return null;
+		return new ParallelFrameAccessor(servClientlist, stream);
 	}
 
 }
