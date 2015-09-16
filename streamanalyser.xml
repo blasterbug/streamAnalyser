@@ -208,5 +208,6 @@
 
     <target name="all" depends="build.modules" description="build all"/>
 
-    <jar destfile="${dist}/dv147_dva95blt_ens16bsf.jar" basedir="${build}/"/>
+    <jar destfile="${module.streamanalyser.basedir}/dv147_dva95blt_ens16bsf.jar" basedir="${basedir}/"/>
+
 </project>
